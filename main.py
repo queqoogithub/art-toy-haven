@@ -1,3 +1,57 @@
+from domain.ports.shipment_port import ShipmentPort
+from adapters.mock_shipment_adapter import MockShipmentAdapter
+from domain.services.shipment_service import ShipmentService
+
+def main():
+    # Initialize the MockShipmentAdapter
+    shipment_adapter = MockShipmentAdapter()
+    
+    # Initialize the ShipmentService with the adapter
+    shipment_service = ShipmentService(shipment_adapter)
+    
+    # Example usage of ShipmentService methods
+    order_id = "12345"
+    recipient_name = "John Doe"
+    recipient_address = "123 Main St, Springfield"
+    
+    # Create a shipment
+    shipment = shipment_service.create_shipment(order_id, recipient_name, recipient_address)
+    print("Created shipment:", shipment)
+    print("-----------------------")
+    
+    # Get shipment status
+    shipment_status = shipment_service.get_shipment_status(shipment["order_id"])
+    print("Shipment status:", shipment_status)
+    print("-----------------------")
+    
+    # Cancel shipment
+    cancel_response = shipment_service.cancel_shipment(shipment["order_id"])
+    print("Cancelled shipment:", cancel_response)
+    print("-----------------------")
+    
+    # Track shipment
+    tracking = shipment_service.tracking_shipment(shipment["tracking_number"])
+    print("Tracking shipment:", tracking)
+
+if __name__ == "__main__":
+    main()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+"""
 from domain.services.payment_service import PaymentService
 from adapters.stripe_adapter import StripeAdapter
 from adapters.mock_payment_adapter import MockStripeAdapter
@@ -30,4 +84,4 @@ print(f"Customer: {customer}")
 print("--------------------")
 print(f"Charge: {charge} \n")
 print(f"Charge successful! Status: {charge['status']}, Amount: {charge['amount'] / 100:.2f} {charge['currency']}")
-
+"""
